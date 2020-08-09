@@ -17,7 +17,7 @@ def lambda_handler(event, context):
     msg_split = input.split('/')[1:]
     if len(msg_split) == 1:
       message = 'and\n' + msg_split[0][:8] + '.'
-    elif len(msg_split) == 2:
+    elif len(msg_split) >= 2:
       message = 'and\n' + msg_split[0][:8] + '\n' + msg_split[1][:7] + '.'
   
   image = Image.open('images/darth_background.png')
