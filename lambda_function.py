@@ -5,10 +5,13 @@ def lambda_handler(event, context):
   import urllib.parse
   from PIL import Image, ImageDraw, ImageFont
 
-  if 'path' in event:
-    print(event['path'])
-    input = urllib.parse.unquote(event['path'])
+  #print(json.dumps(event))
+  
+  if event['pathParameters']: # this will be "null" if the root of the app is requested
+    print(event['pathParameters']['proxy'])
+    input = '/' + urllib.parse.unquote(event['pathParameters']['proxy']) # path will now be preceded by "darth" so bodge in this check
   else:
+    print('/')
     input = '/'
   
   if input == '/':
@@ -21,7 +24,6 @@ def lambda_handler(event, context):
       message = 'and\n' + msg_split[0][:8] + '\n' + msg_split[1][:7] + '.'
   
   image = Image.open('images/darth_background.png')
-
 
   draw = ImageDraw.Draw(image)
   
